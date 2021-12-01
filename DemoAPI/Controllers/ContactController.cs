@@ -32,8 +32,8 @@ namespace DemoAPI.Controllers
             //maListe.Add("couscous");
         }
         [HttpGet]
-
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
+       // [Authorize(Roles = "Admin")]
         public IActionResult GetAll()
         {
             return Ok(_contactService.GetAll().Select(c => c.ToApi()));

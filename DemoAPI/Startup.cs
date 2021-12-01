@@ -1,3 +1,4 @@
+using ApiMiddleware;
 using BLL.Interface;
 using BLL.Models;
 using BLL.Services;
@@ -41,13 +42,23 @@ namespace DemoAPI
         }
 
         public IConfiguration Configuration { get; }
-
+        public string policyName = "LocalHostPolicy";
+        public string policyName2 = "NoOriginPolicy";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             //DI de notre logger
             services.AddScoped<ILoggerManager, LoggerManager>();
-            
+
+            //CORS
+            services.AddCustomCorsPolicy(policyName2, new List<string>() { "https://localhost" });
+            services.AddCustomCorsPolicy(policyName, new List<string>() { "https://*.mondomaine.com" });
+
+
+
+
+
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(
                  options =>
@@ -136,6 +147,11 @@ namespace DemoAPI
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DemoAPI v1"));
+                app.UseCors(policyName2);
+            }
+            else
+            {
+                app.UseCors(policyName);
             }
 
             //Global error Handling
@@ -174,6 +190,7 @@ namespace DemoAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+          
             app.UseAuthentication();
             app.UseAuthorization();
 
