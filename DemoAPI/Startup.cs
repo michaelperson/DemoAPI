@@ -54,7 +54,7 @@ namespace DemoAPI
             services.AddCustomCorsPolicy(policyName2, new List<string>() { "https://localhost" });
             services.AddCustomCorsPolicy(policyName, new List<string>() { "https://*.mondomaine.com" });
 
-
+             
 
 
 
