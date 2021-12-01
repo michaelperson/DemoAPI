@@ -2,10 +2,14 @@ using BLL.Interface;
 using BLL.Models;
 using BLL.Services;
 using DAL.Interface;
-using DAL.Services; 
+using DAL.Services;
+using DemoAPI.Models;
+using DemoAPI.Tools.Logging.Interfaces;
+using DemoAPI.Tools.Logging.NLog;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,9 +20,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +35,8 @@ namespace DemoAPI
     {
         public Startup(IConfiguration configuration)
         {
+            //Chargement de la configuration à partir de notre fichier de config
+            LogManager.LoadConfiguration($"{Directory.GetCurrentDirectory()}/NLog.config");
             Configuration = configuration;
         }
 
@@ -36,6 +45,8 @@ namespace DemoAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //DI de notre logger
+            services.AddScoped<ILoggerManager, LoggerManager>();
             
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(
@@ -127,7 +138,37 @@ namespace DemoAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DemoAPI v1"));
             }
 
+            //Global error Handling
+            app.UseExceptionHandler
+                (
+                  MidErrors =>
+                  {
+                      LoggerManager manager = new LoggerManager();
+                      MidErrors.Run(async context =>
+                     {
+                         //JE gère l'erreur suivant son context 
+                         manager.LogCritic($"[Global Handler] {context.Response.StatusCode}");
+                         IExceptionHandlerFeature lerreur = context.Features.Get<IExceptionHandlerFeature>();
+                         if (lerreur != null)
+                         {
+                             manager.LogCritic($"[Global Handler - IExceptionHandlerFeature] {lerreur.Error}");
+                         }
+                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                         context.Response.ContentType = "application/json";
+                         ErrorDetails error = new ErrorDetails()
+                         {
+                             StatusCode = context.Response.StatusCode,
+                             Message = "Internal Error - Global catch"
+                         };
 
+                         await context.Response.WriteAsync(error.ToString());
+
+
+                     });
+
+                  }
+                
+                );
             
 
             app.UseHttpsRedirection();

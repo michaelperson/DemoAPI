@@ -10,6 +10,7 @@ using BLL.Models;
 using DemoAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using DemoAPI.Tools.Logging.Interfaces;
 
 namespace DemoAPI.Controllers
 {
@@ -20,11 +21,11 @@ namespace DemoAPI.Controllers
     {
         //private List<string> maListe = new List<string>();
         private IContactBusiness<BusinessContact> _contactService;
-
-        public ContactController(IContactBusiness<BusinessContact> contactBusiness)
+        private readonly ILoggerManager _logger;
+        public ContactController(IContactBusiness<BusinessContact> contactBusiness, ILoggerManager logger)
         {
             _contactService = contactBusiness;
-
+            _logger = logger;
             //maListe.Add("test");
             //maListe.Add("coucou");
             //maListe.Add("pizza");
@@ -44,6 +45,10 @@ namespace DemoAPI.Controllers
         [AllowAnonymous]
         public IActionResult GetById(int id)
         {
+#if DEBUG
+            _logger.LogDebug($"[GET api/Contact/{id}] Demande des informations du contact ayant l'id {id}");
+#endif
+
             return Ok(_contactService.GetById(id).ToApi());
         }
 
@@ -52,14 +57,16 @@ namespace DemoAPI.Controllers
         {
             try
             {
+
                 _contactService.Delete(id);
                 return Ok("Tout s'est bien passé");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
+                _logger.LogCritic($"[DELETE api/Contact/{id}] Erreur lors de la suppression. \n\r Exception : {e.Message}");
                 return BadRequest(e.Message);
             }
-           
+
         }
 
         [HttpPost]
