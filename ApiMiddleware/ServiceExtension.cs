@@ -22,7 +22,8 @@ namespace ApiMiddleware
                     {
                         options.AddPolicy(policyName, policy =>
                         {
-                        policy.WithOrigins(origin.ToArray())
+                             
+                             policy.WithOrigins(origin.ToArray())
                             .AllowAnyMethod()  
                             .AllowCredentials()
                             .SetIsOriginAllowed((host) => true)

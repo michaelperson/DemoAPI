@@ -59,8 +59,7 @@ namespace DemoAPI
             //SignalR
             services.AddSignalR(options =>
             {
-                options.EnableDetailedErrors = true;
-          
+                options.EnableDetailedErrors = true;          
             });
 
 
