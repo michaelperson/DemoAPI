@@ -57,12 +57,17 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Table" />
+    <Folder Include="StoredProcedure" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Table\Contact.sql" />
     <Build Include="Table\User.sql" />
     <Build Include="Table\UserContact.sql" />
     <Build Include="Table\Roles.sql" />
+    <Build Include="Table\Groupes.sql" />
+    <Build Include="Table\GroupeUser.sql" />
+    <Build Include="Table\Messages.sql" />
+    <Build Include="StoredProcedure\GetUsersAssociatedWithContacts.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />
