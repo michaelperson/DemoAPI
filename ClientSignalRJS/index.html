@@ -28,7 +28,7 @@
             let connection = new signalR.HubConnectionBuilder()
                              .configureLogging(signalR.LogLevel.Trace)
                              .withAutomaticReconnect()
-                             .withUrl("https://localhost:44338/messagehub")
+                             .withUrl("https://localhost:5001/messagehub")
                              .build();
             
                      

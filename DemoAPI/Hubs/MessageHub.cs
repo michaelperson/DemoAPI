@@ -7,9 +7,9 @@ namespace DemoAPI.Hubs
 {
     public class MessageHub: Hub<IHubClient>
     {
-        public   void SendMessage(string user, string message)
+        public void SendMessage(string user, string message)
         {
-              Clients.Others.FnClientMessage( user, message);
+              Clients.All.FnClientMessage( user, message);
         }
 
         public override  Task OnConnectedAsync()

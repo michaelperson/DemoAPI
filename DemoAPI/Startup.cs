@@ -52,8 +52,8 @@ namespace DemoAPI
             services.AddScoped<ILoggerManager, LoggerManager>();
 
             //CORS
-            services.AddCustomCorsPolicy(policyName2, new List<string>() { "https://localhost" });
-            services.AddCustomCorsPolicy(policyName, new List<string>() { "https://*.mondomaine.com" });
+            services.AddCustomCorsPolicy(policyName2);
+            //services.AddCustomCorsPolicy(policyName, new List<string>() { "https://*.mondomaine.com" });
 
 
             //SignalR
@@ -153,13 +153,13 @@ namespace DemoAPI
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DemoAPI v1"));
-                app.UseCors(policyName2);
+                //app.UseCors(policyName2);
             }
             else
             {
-                app.UseCors(policyName);
+                //app.UseCors(policyName);
             }
-
+            app.UseCors(policyName2);
             //Global error Handling
             app.UseExceptionHandler
                 (
