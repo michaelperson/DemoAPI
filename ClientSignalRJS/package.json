@@ -12,6 +12,6 @@
   "author": "M.PErson",
   "license": "ISC",
   "dependencies": {
-    "@microsoft/signalr": "^6.0.0"
+    "@microsoft/signalr": "^5.0.12"
   }
 }

@@ -22,10 +22,10 @@ namespace ApiMiddleware
                     {
                         options.AddPolicy(policyName, policy =>
                         {
-                        policy.WithOrigins(origin.ToArray())
-                              .AllowAnyMethod()
-                              .AllowAnyHeader()
-                              .AllowCredentials();
+                        policy.WithOrigins(origin.ToArray()) 
+                        .AllowAnyHeader()
+                        .WithMethods("GET", "POST", "PUT", "PATCH", "DELETE")
+                        .AllowCredentials();
                         });
                     }
                   else
@@ -36,6 +36,7 @@ namespace ApiMiddleware
                                   .AllowAnyMethod()
                                   .AllowAnyHeader();
                         });
+                        
                     }
                 
                 
