@@ -11,32 +11,15 @@ using System.Threading.Tasks;
 
 namespace DAL.Services
 {
-    public class ContactWithLibray : IContactRepoLibrary
+    public class ContactWithLibray : BaseRepository<Contact>, IContactRepoLibrary
     {
-        private string _connectionString;
-        //= @"Data Source=DESKTOP-RGPQP6I\TFTIC2014;Initial Catalog=TechniContact;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
-        public ContactWithLibray(IConfiguration config)
+       
+        public ContactWithLibray(IConfiguration config) : base(config)
         {
-            _connectionString = config.GetConnectionString("default");
+           
         }
-
-
-        private Connection seConnecter()
-        {
-            return new Connection(_connectionString);
-        }
-
-        public Contact Convert(SqlDataReader reader)
-        {
-            return new Contact
-            {
-                Id = (int)reader["Id"],
-                FirstName = reader["FirstName"] is DBNull ? null : reader["FirstName"].ToString(),
-                LastName = reader["LastName"].ToString(),
-                Email = reader["Email"].ToString()
-            };
-        }
+         
+ 
 
         public void Delete(int Id)
         {

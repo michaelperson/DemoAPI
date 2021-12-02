@@ -7,13 +7,8 @@ using System.Threading.Tasks;
 
 namespace DAL.Interface
 {
-    public interface IContactRepository
+    public interface IContactRepository: IRepository<Contact, int>
     {
-        IEnumerable<Contact> GetAll();
-        Contact GetById(int Id);
-
-        void Insert(Contact c);
-        void Update(Contact c);
-        void Delete(int Id);
+        
     }
 }

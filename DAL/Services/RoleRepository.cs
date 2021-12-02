@@ -11,30 +11,14 @@ using System.Threading.Tasks;
 
 namespace DAL.Services
 {
-    public class RoleRepository : IRoleRepository
+    public class RoleRepository : BaseRepository<Roles>, IRoleRepository
     {
-        private string _connectionString;
-        //= @"Data Source=DESKTOP-RGPQP6I\TFTIC2014;Initial Catalog=TechniContact;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
-        public RoleRepository(IConfiguration config)
+   
+        public RoleRepository(IConfiguration config) : base (config)
         {
-            _connectionString = config.GetConnectionString("default");
+            
         }
-
-
-        private Connection seConnecter()
-        {
-            return new Connection(_connectionString);
-        }
-
-        public Roles Convert(SqlDataReader reader)
-        {
-            return new Roles
-            {
-                Id = (int)reader["Id"],
-                 Nom = reader["Nom"].ToString()
-            };
-        }
+         
 
         public void Delete(int Id)
         {

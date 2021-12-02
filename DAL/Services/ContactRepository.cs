@@ -10,16 +10,13 @@ using System.Threading.Tasks;
 
 namespace DAL.Services
 {
-    public class ContactRepository : IContactRepository
+    public class ContactRepository : BaseRepository<Contact>, IContactRepository
     {
-        private string _connectionString;
-        //= @"Data Source=DESKTOP-RGPQP6I\TFTIC2014;Initial Catalog=TechniContact;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        
 
-
-
-        public ContactRepository(IConfiguration config)
+        public ContactRepository(IConfiguration config) : base(config)
         {
-            _connectionString = config.GetConnectionString("default");
+            
         }
 
         public void Delete(int Id)
@@ -91,42 +88,58 @@ namespace DAL.Services
             return c;
         }
 
-        public void Insert(Contact c)
+        public bool Insert(Contact c)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-                using (SqlCommand cmd = connection.CreateCommand())
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    cmd.CommandText = "INSERT INTO Contact (LastName, FirstName, Email) " +
-                        "VALUES (@ln, @fn, @email)";
+                    connection.Open();
+                    using (SqlCommand cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = "INSERT INTO Contact (LastName, FirstName, Email) " +
+                            "VALUES (@ln, @fn, @email)";
 
-                    cmd.Parameters.AddWithValue("ln", c.LastName);
-                    cmd.Parameters.AddWithValue("fn", c.FirstName);
-                    cmd.Parameters.AddWithValue("email", c.Email);
+                        cmd.Parameters.AddWithValue("ln", c.LastName);
+                        cmd.Parameters.AddWithValue("fn", c.FirstName);
+                        cmd.Parameters.AddWithValue("email", c.Email);
 
-                    cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
+                    }
                 }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 
-        public void Update(Contact c)
+        public bool Update(Contact c)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-                using (SqlCommand cmd = connection.CreateCommand())
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    cmd.CommandText = "UPDATE Contact SET LastName = @ln, FirstName = @fn, Email = @email" +
-                        " WHERE Id = @id";
+                    connection.Open();
+                    using (SqlCommand cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = "UPDATE Contact SET LastName = @ln, FirstName = @fn, Email = @email" +
+                            " WHERE Id = @id";
 
-                    cmd.Parameters.AddWithValue("ln", c.LastName);
-                    cmd.Parameters.AddWithValue("fn", c.FirstName);
-                    cmd.Parameters.AddWithValue("email", c.Email);
-                    cmd.Parameters.AddWithValue("id", c.Id);
+                        cmd.Parameters.AddWithValue("ln", c.LastName);
+                        cmd.Parameters.AddWithValue("fn", c.FirstName);
+                        cmd.Parameters.AddWithValue("email", c.Email);
+                        cmd.Parameters.AddWithValue("id", c.Id);
 
-                    cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
+                    }
                 }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
     }

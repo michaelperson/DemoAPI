@@ -11,39 +11,22 @@ using System.Threading.Tasks;
 
 namespace DAL.Services
 {
-    public class UserRepository : IUserRepository 
+    public class UserRepository : BaseRepository<User>, IUserRepository 
     {
-        private string _connectionString;
-        //= @"Data Source=DESKTOP-RGPQP6I\TFTIC2014;Initial Catalog=TechniContact;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
-        public UserRepository(IConfiguration config)
+       
+        public UserRepository(IConfiguration config):base(config)
         {
-            _connectionString = config.GetConnectionString("default");
+           
         }
 
 
-        private Connection seConnecter()
-        {
-            return new Connection(_connectionString);
-        }
+         
 
-        public User Convert(SqlDataReader reader)
-        {
-            return new User
-            {
-                Id = (int)reader["Id"],
-                FirstName = reader["FirstName"] is DBNull ? null : reader["FirstName"].ToString(),
-                LastName = reader["LastName"].ToString(),
-                Email = reader["Email"].ToString(),
-                Password = (byte[]) reader["Password"] ,
-                Salt = (byte[])reader["Salt"] ,
-                IdRole = (int)reader["IdRole"]
-            };
-        }
+        
 
         public void Delete(int Id)
         {
-            string query = "DELETE FROM Contact WHERE Id = @Id";
+            string query = "DELETE FROM [User] WHERE Id = @Id";
             Command cmd = new Command(query);
             cmd.AddParameter("Id", Id);
             

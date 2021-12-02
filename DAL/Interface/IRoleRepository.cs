@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Interface
 {
-    public interface IRoleRepository
+    public interface IRoleRepository : IRepository<Roles, int>
     {
-        IEnumerable<Roles> GetAll();
-        Roles GetById(int Id); 
-        bool Insert(Roles c);
-        bool Update(Roles c);
-        void Delete(int Id);
+         
         IEnumerable<Roles> GetAllByUser(int IdUser);
 
 

@@ -7,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace DAL.Interface
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User, int>
     {
-        IEnumerable<User> GetAll();
-        User GetById(int Id);
+        
         User GetByEmail(string Email);
-        bool Insert(User c);
-        bool Update(User c);
-        void Delete(int Id);
+       
     }
 }
