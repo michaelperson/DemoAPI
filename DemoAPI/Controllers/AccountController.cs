@@ -1,10 +1,12 @@
 ﻿using BLL.Interface;
 using BLL.Models;
+using DemoAPI.Hubs;
 using DemoAPI.Models;
 using DemoAPI.Tools;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -24,10 +26,15 @@ namespace DemoAPI.Controllers
         private readonly IConfiguration _configuration;
         private readonly IUserBusiness<BusinessUser> _UserService;
         private readonly ILogger<AccountController> _logger;
-        public AccountController(IConfiguration configuration, ILogger<AccountController> logger, IUserBusiness<BusinessUser> UserBusiness)
+        private readonly IHubContext<MessageHub, IHubClient> _hubCtxt;
+        public AccountController(IConfiguration configuration, 
+            ILogger<AccountController> logger, 
+            IUserBusiness<BusinessUser> UserBusiness,
+            IHubContext<MessageHub, IHubClient> hubContext)
         {
             _configuration = configuration;
             _UserService = UserBusiness;
+            _hubCtxt = hubContext;
         }
 
         #region NonSecure
@@ -77,7 +84,19 @@ namespace DemoAPI.Controllers
            
             if(PasswordTools.CheckPassword(login.Password, user.Password, user.Salt))
             {
-                return new OkObjectResult(TokenTool.GenerateToken(user, _configuration, new List<string> { ((RolesEnum)user.IdRole).ToString()}));
+
+                try
+                {
+                    _hubCtxt.Clients.All.FnClientMessage("Account", $"L'utilisateur {user.LastName} s'est connecté");
+
+                }
+                catch (Exception)
+                { 
+                }
+
+                string Token = TokenTool.GenerateToken(user, _configuration, new List<string> { ((RolesEnum)user.IdRole).ToString() });
+  
+                return new OkObjectResult(Token);
             }
          else
             {

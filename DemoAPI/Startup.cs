@@ -80,6 +80,23 @@ namespace DemoAPI
                          ValidateAudience = true,
                          ValidateIssuer = true
                      };
+
+                     //Me permet de récupérer le token envoyé par SignalR et de l'injection dans
+                     // le header authorization pour que  [Authorize] fonctionne correctement
+                     options.Events = new JwtBearerEvents
+                     {
+                         OnMessageReceived = context =>
+                         {
+                             var token = context.Request.Query["access_token"];
+                             var path = context.HttpContext.Request.Path;
+                             if (!string.IsNullOrEmpty(path) && path.StartsWithSegments("/messagehub"))
+                             {
+                                 context.Token = token;
+                                 context.HttpContext.Request.Headers.Add("Authorization", $"bearer {token}");
+                             }
+                             return Task.CompletedTask;
+                         }
+                     };
                  }
 
                 ); 
