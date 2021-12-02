@@ -28,14 +28,22 @@
             let connection = new signalR.HubConnectionBuilder()
                              .configureLogging(signalR.LogLevel.Trace)
                              .withAutomaticReconnect()
-                             .withUrl("http://localhost:5000/messagehub")
+                             .withUrl("https://localhost:5001/messagehub", {withCredentials: false})
                              .build();
             
                      
                              async function start() {
                                 try {
                                     await connection.start();
+                                    connection.on("FnClientMessage", (user, message) => 
+                                    {
+                                        const li = document.getElementById("Display");
+                                        li.textContent = `${user}: ${message}`;
+                                        document.getElementById("Display").appendChild(li);
+                                    });
+                                    await connection.invoke("SendMessage", "Mike","Je suis là");
                                     console.log("SignalR Connected.");
+                                    
                                 } catch (err) {
                                     console.log(err);
                                     setTimeout(start, 5000);

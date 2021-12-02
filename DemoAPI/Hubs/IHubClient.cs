@@ -12,8 +12,8 @@ namespace DemoAPI.Hubs
     /// </summary>
     public interface IHubClient
     {
-        void FnClientMessage(string user, string message);
-        void Deconnexion();
-        void Connexion();
+        Task FnClientMessage(string user, string message);
+        Task Deconnexion();
+        Task Connexion();
     }
 }

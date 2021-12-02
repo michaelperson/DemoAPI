@@ -52,7 +52,7 @@ namespace DemoAPI
             services.AddScoped<ILoggerManager, LoggerManager>();
 
             //CORS
-            services.AddCustomCorsPolicy(policyName2, new List<string>() { "https://localhost" });
+            services.AddCustomCorsPolicy(policyName2, new List<string>() { "http://127.0.0.1:5500'" });
             services.AddCustomCorsPolicy(policyName, new List<string>() { "https://*.mondomaine.com" });
 
 
@@ -189,9 +189,9 @@ namespace DemoAPI
                 );
             
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
-            app.UseRouting();
+           
             if (env.IsDevelopment())
             {
                 app.UseCors(policyName2);
@@ -200,7 +200,8 @@ namespace DemoAPI
             {
                 app.UseCors(policyName);
             }
-                app.UseAuthentication();
+            app.UseRouting();
+                app.UseAuthentication(); 
             app.UseAuthorization();
           
             app.UseEndpoints(endpoints =>
