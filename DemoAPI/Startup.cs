@@ -190,7 +190,6 @@ namespace DemoAPI
             
 
             app.UseHttpsRedirection();
-
            
             if (env.IsDevelopment())
             {

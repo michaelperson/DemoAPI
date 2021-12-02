@@ -14,12 +14,12 @@ namespace DemoAPI.Hubs
 
         public override  Task OnConnectedAsync()
         {
-            Clients.All.Connexion();
+            Clients.Others.Connexion();
             return base.OnConnectedAsync();
         }
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            Clients.All.Deconnexion();
+            Clients.Others.Deconnexion();
             return base.OnDisconnectedAsync(exception);
         }
     }

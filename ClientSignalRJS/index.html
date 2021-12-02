@@ -28,19 +28,34 @@
             let connection = new signalR.HubConnectionBuilder()
                              .configureLogging(signalR.LogLevel.Trace)
                              .withAutomaticReconnect()
-                             .withUrl("https://localhost:5001/messagehub", {withCredentials: false})
+                             .withUrl("https://localhost:5001/messagehub")
                              .build();
             
                      
                              async function start() {
                                 try {
                                     await connection.start();
+                                    //Abonnement à la réponse
                                     connection.on("FnClientMessage", (user, message) => 
                                     {
-                                        const li = document.getElementById("Display");
+                                        const li = document.createElement("li");
                                         li.textContent = `${user}: ${message}`;
                                         document.getElementById("Display").appendChild(li);
                                     });
+                                    connection.on("Connexion", ()=>
+                                    {
+                                        const li = document.createElement("li");
+                                        li.textContent = `Un utilisateur s'est connecté`;
+                                        document.getElementById("Display").appendChild(li);
+
+                                    });
+                                    connection.on("Deconnexion", ()=>
+                                    {
+                                        const li = document.createElement("li");
+                                        li.textContent = `Un utilisateur s'est déconnecté`;
+                                        document.getElementById("Display").appendChild(li);
+
+                                    })
                                     await connection.invoke("SendMessage", "Mike","Je suis là");
                                     console.log("SignalR Connected.");
                                     
