@@ -41,7 +41,8 @@ namespace BLL.Tools
                 FirstName = user.FirstName,
                 Email = user.Email,
                 Password=user.Password,
-                Salt = user.Salt
+                Salt = user.Salt,
+                IdRole= user.IdRole
             };
         }
 
@@ -54,8 +55,28 @@ namespace BLL.Tools
                 FirstName = user.FirstName,
                 Email = user.Email,
                 Password= user.Password,
-                Salt = user.Salt
+                Salt = user.Salt,
+                IdRole = user.IdRole
             };
         }
+
+        public static BusinessRoles ToBll(this Roles role)
+        {
+            return new BusinessRoles
+            {
+                Id = role.Id,
+                Nom=role.Nom
+            };
+        }
+
+        public static Roles ToDal(this BusinessRoles role)
+        {
+            return new Roles
+            {
+                Id = role.Id,
+                Nom = role.Nom
+            };
+        }
+
     }
 }

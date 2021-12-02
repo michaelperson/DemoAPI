@@ -36,7 +36,8 @@ namespace DAL.Services
                 LastName = reader["LastName"].ToString(),
                 Email = reader["Email"].ToString(),
                 Password = (byte[]) reader["Password"] ,
-                Salt = (byte[])reader["Salt"] 
+                Salt = (byte[])reader["Salt"] ,
+                IdRole = (int)reader["IdRole"]
             };
         }
 
@@ -75,14 +76,15 @@ namespace DAL.Services
         }
         public bool Insert(User c)
         {
-            string query = "INSERT INTO [User] (FirstName, LastName, Email, Password, Salt)" +
-                " VALUES(@fn, @ln, @email, @Password, @Salt)";
+            string query = "INSERT INTO [User] (FirstName, LastName, Email, Password, Salt, IdRole)" +
+                " VALUES(@fn, @ln, @email, @Password, @Salt, @IdRole)";
             Command cmd = new Command(query);
             cmd.AddParameter("fn", c.FirstName);
             cmd.AddParameter("ln", c.LastName);
             cmd.AddParameter("email", c.Email);
             cmd.AddParameter("Password", c.Password);
             cmd.AddParameter("Salt", c.Salt);
+            cmd.AddParameter("IdRole", c.IdRole);
 
             Connection conn = new Connection(_connectionString);
             return conn.ExecuteNonQuery(cmd) == 1;
@@ -90,7 +92,7 @@ namespace DAL.Services
 
         public bool Update(User c)
         {
-            string query = "UPDATE [User] SET FirstName = @fn, LastName = @ln, Email = @email, Password= @Password, Salt=@Salt WHERE Id = @id";
+            string query = "UPDATE [User] SET FirstName = @fn, LastName = @ln, Email = @email, Password= @Password, Salt=@Salt, IdRole=@IdRole WHERE Id = @id";
             Command cmd = new Command(query);
             cmd.AddParameter("fn", c.FirstName);
             cmd.AddParameter("ln", c.LastName);
@@ -98,6 +100,7 @@ namespace DAL.Services
             cmd.AddParameter("Password", c.Password);
             cmd.AddParameter("Salt", c.Salt);
             cmd.AddParameter("id", c.Id);
+            cmd.AddParameter("IdRole", c.IdRole);
 
             Connection conn = new Connection(_connectionString);
             return conn.ExecuteNonQuery(cmd) == 1;

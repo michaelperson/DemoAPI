@@ -1,0 +1,17 @@
+{
+  "name": "clientsignalrjs",
+  "version": "1.0.0",
+  "description": "Petit exemple de client js pour signalR",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "signalr"
+  ],
+  "author": "M.PErson",
+  "license": "ISC",
+  "dependencies": {
+    "@microsoft/signalr": "^6.0.0"
+  }
+}

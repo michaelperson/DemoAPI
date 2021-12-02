@@ -16,5 +16,7 @@ namespace DAL.Entities
         public byte[] Password { get; set; }
 
         public byte[] Salt { get; set; }
+
+        public int IdRole { get; set; }
     }
 }

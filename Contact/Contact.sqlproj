@@ -62,6 +62,7 @@
     <Build Include="Table\Contact.sql" />
     <Build Include="Table\User.sql" />
     <Build Include="Table\UserContact.sql" />
+    <Build Include="Table\Roles.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />

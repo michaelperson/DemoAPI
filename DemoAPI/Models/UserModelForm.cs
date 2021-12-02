@@ -7,6 +7,16 @@ using System.Threading.Tasks;
 
 namespace DemoAPI.Models
 {
+    /// <summary>
+    /// Enumération permettant de limiter le choix au niveau des roles
+    /// !!!Il faut que les id dans la db correspondent à nos valeurs
+    /// sinon il faut effectuer un appel DB pour récupére l'id avant l'insertion!!!
+    /// </summary>
+    public enum RolesEnum
+    {
+        Admin=1,
+        Membre=2
+    }
     public class UserModelForm
     {
         
@@ -22,5 +32,8 @@ namespace DemoAPI.Models
         public string Password { get; set; } 
         [JsonIgnore]
         public string secret { get; set; }
+
+        [Required]
+        public RolesEnum IdRole { get; set; }
     }
 }

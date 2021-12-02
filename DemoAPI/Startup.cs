@@ -4,6 +4,7 @@ using BLL.Models;
 using BLL.Services;
 using DAL.Interface;
 using DAL.Services;
+using DemoAPI.Hubs;
 using DemoAPI.Models;
 using DemoAPI.Tools.Logging.Interfaces;
 using DemoAPI.Tools.Logging.NLog;
@@ -54,8 +55,13 @@ namespace DemoAPI
             services.AddCustomCorsPolicy(policyName2, new List<string>() { "https://localhost" });
             services.AddCustomCorsPolicy(policyName, new List<string>() { "https://*.mondomaine.com" });
 
-             
 
+            //SignalR
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
+          
+            });
 
 
 
@@ -193,10 +199,11 @@ namespace DemoAPI
           
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<MessageHub>("/messagehub");
             });
         }
     }

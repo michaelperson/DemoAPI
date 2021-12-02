@@ -17,3 +17,6 @@ VALUES ('Pendragon', 'Arthur', 'arthur@kaamelott.com')
 
 INSERT INTO Contact (LastName, FirstName, Email)
 VALUES ('McFly', 'Marty', 'marty@future.com')
+
+insert into Roles (Nom) VALUES('Admin');
+insert into Roles (Nom) VALUES('Membre');

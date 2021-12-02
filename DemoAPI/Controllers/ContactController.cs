@@ -32,8 +32,8 @@ namespace DemoAPI.Controllers
             //maListe.Add("couscous");
         }
         [HttpGet]
-        [AllowAnonymous]
-       // [Authorize(Roles = "Admin")]
+         
+         [Authorize(Roles = "Admin")]
         public IActionResult GetAll()
         {
             return Ok(_contactService.GetAll().Select(c => c.ToApi()));
@@ -42,7 +42,7 @@ namespace DemoAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin, Membre")]
         public IActionResult GetById(int id)
         {
 #if DEBUG
@@ -79,7 +79,7 @@ namespace DemoAPI.Controllers
         }
 
         [HttpPut]
-        [Authorize ]
+        [Authorize(Roles = "Membre") ]
         public IActionResult Update(ContactForm c)
         {
             if (!ModelState.IsValid)

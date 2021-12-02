@@ -49,7 +49,9 @@ namespace DemoAPI.Controllers
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Salt = salt,
-                    Password = PasswordTools.GenerateSaltedHash(Encoding.UTF8.GetBytes(user.Password), salt)
+                    Password = PasswordTools.GenerateSaltedHash(Encoding.UTF8.GetBytes(user.Password), salt),
+                    IdRole= (int)user.IdRole
+                    
                 };
 
                 _UserService.Insert(um.ToBLL());
@@ -75,7 +77,7 @@ namespace DemoAPI.Controllers
            
             if(PasswordTools.CheckPassword(login.Password, user.Password, user.Salt))
             {
-                return new OkObjectResult(TokenTool.GenerateToken(user, _configuration, new List<string> { "Guest"}));
+                return new OkObjectResult(TokenTool.GenerateToken(user, _configuration, new List<string> { ((RolesEnum)user.IdRole).ToString()}));
             }
          else
             {

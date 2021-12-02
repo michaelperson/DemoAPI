@@ -40,7 +40,9 @@ namespace DemoAPI.Tools
                 LastName = bu.LastName,
                 FirstName = bu.FirstName,
                  Password= bu.Password, 
-                 Salt= bu.Salt
+                 Salt= bu.Salt,
+
+                IdRole = bu.IdRole
             };
         }
 
@@ -53,7 +55,26 @@ namespace DemoAPI.Tools
                 LastName = u.LastName,
                 FirstName = u.FirstName,
                  Password = u.Password,
-                Salt = u.Salt
+                Salt = u.Salt,
+                IdRole= u.IdRole
+            };
+        }
+
+        public static RolesModel ToApi(this BusinessRoles bc)
+        {
+            return new RolesModel
+            {
+                Id = bc.Id,
+                Nom = bc.Nom, 
+            };
+        }
+
+        public static BusinessRoles ToBLL(this RolesModel c)
+        {
+            return new BusinessRoles
+            {
+                Id = c.Id,
+                Nom = c.Nom,
             };
         }
     }

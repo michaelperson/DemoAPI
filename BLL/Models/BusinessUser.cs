@@ -16,5 +16,6 @@ namespace BLL.Models
         public byte[] Password { get; set; }
 
         public byte[] Salt { get; set; }
+        public int IdRole { get; set; }
     }
 }

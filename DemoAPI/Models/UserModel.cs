@@ -22,5 +22,8 @@ namespace DemoAPI.Models
         public byte[] Password { get; set; }
         [JsonIgnore]
         public byte[] Salt { get; set; }
+
+        [Required]
+        public int IdRole { get; set; }
     }
 }
