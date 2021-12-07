@@ -25,5 +25,8 @@ namespace DemoAPI.Models
 
         [Required]
         public int IdRole { get; set; }
+
+        [JsonIgnore]
+        public string SignalRConnectionId { get; set; }
     }
 }

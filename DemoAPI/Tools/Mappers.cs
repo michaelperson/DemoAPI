@@ -42,7 +42,8 @@ namespace DemoAPI.Tools
                  Password= bu.Password, 
                  Salt= bu.Salt,
 
-                IdRole = bu.IdRole
+                IdRole = bu.IdRole,
+                SignalRConnectionId=bu.SignalRConnectionId
             };
         }
 
@@ -56,7 +57,8 @@ namespace DemoAPI.Tools
                 FirstName = u.FirstName,
                  Password = u.Password,
                 Salt = u.Salt,
-                IdRole= u.IdRole
+                IdRole= u.IdRole,
+                SignalRConnectionId=u.SignalRConnectionId
             };
         }
 

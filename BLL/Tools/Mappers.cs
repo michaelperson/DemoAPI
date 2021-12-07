@@ -42,7 +42,8 @@ namespace BLL.Tools
                 Email = user.Email,
                 Password=user.Password,
                 Salt = user.Salt,
-                IdRole= user.IdRole
+                IdRole= user.IdRole,
+                SignalRConnectionId=user.SignalRConnectionId
             };
         }
 
@@ -56,7 +57,8 @@ namespace BLL.Tools
                 Email = user.Email,
                 Password= user.Password,
                 Salt = user.Salt,
-                IdRole = user.IdRole
+                IdRole = user.IdRole,
+                SignalRConnectionId= user.SignalRConnectionId
             };
         }
 

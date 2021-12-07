@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 namespace DemoAPI.Hubs
 {
@@ -18,7 +21,20 @@ namespace DemoAPI.Hubs
  
 
         public  override Task OnConnectedAsync()
-        {
+        { 
+            HttpContext httpContext = this.Context.GetHttpContext();
+
+            string authHeader = httpContext.Request.Headers["Authorization"];
+            if(!string.IsNullOrEmpty(authHeader))
+            {
+                string bearer = authHeader.Remove(0, 6).Trim();
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(bearer);
+                JwtSecurityToken tokenS = jsonToken as JwtSecurityToken;
+                string email = tokenS.Payload["email"].ToString();
+                //Add connectionId to Db if not exist
+
+            }
             Clients.Others.Connexion();
             JoinGroup("Membre").Wait();
 

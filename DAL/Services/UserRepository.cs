@@ -75,7 +75,7 @@ namespace DAL.Services
 
         public bool Update(User c)
         {
-            string query = "UPDATE [User] SET FirstName = @fn, LastName = @ln, Email = @email, Password= @Password, Salt=@Salt, IdRole=@IdRole WHERE Id = @id";
+            string query = "UPDATE [User] SET FirstName = @fn, LastName = @ln, Email = @email, Password= @Password, Salt=@Salt, IdRole=@IdRole, SignalRConnectionId=@SignalRConnectionId WHERE Id = @id";
             Command cmd = new Command(query);
             cmd.AddParameter("fn", c.FirstName);
             cmd.AddParameter("ln", c.LastName);
@@ -84,6 +84,7 @@ namespace DAL.Services
             cmd.AddParameter("Salt", c.Salt);
             cmd.AddParameter("id", c.Id);
             cmd.AddParameter("IdRole", c.IdRole);
+            cmd.AddParameter("SignalRConnectionId", c.SignalRConnectionId);
 
             Connection conn = new Connection(_connectionString);
             return conn.ExecuteNonQuery(cmd) == 1;

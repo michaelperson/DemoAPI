@@ -18,5 +18,7 @@ namespace DAL.Entities
         public byte[] Salt { get; set; }
 
         public int IdRole { get; set; }
+
+        public string SignalRConnectionId { get; set; }
     }
 }
