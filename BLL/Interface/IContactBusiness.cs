@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 
 namespace BLL.Interface
 {
-    public interface IContactBusiness<TEntity> 
+    public interface IContactBusiness<TEntity> : IBusiness<TEntity>
         where TEntity : new()
     {
-        IEnumerable<TEntity> GetAll();
+        
         IEnumerable<TEntity>  GetAllByUser(int IdUser);
-        TEntity GetById(int Id);
-
-        void Delete(int Id);
-        void Insert(TEntity c);
-        void Update(TEntity c);
+       
     }
 }

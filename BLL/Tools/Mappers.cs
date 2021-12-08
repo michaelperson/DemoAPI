@@ -80,5 +80,23 @@ namespace BLL.Tools
             };
         }
 
+        public static BusinessGroupes ToBll(this Groupes role)
+        {
+            return new BusinessGroupes
+            {
+                Id = role.Id,
+                Nom = role.Nom
+            };
+        }
+
+        public static Groupes ToDal(this BusinessGroupes role)
+        {
+            return new Groupes
+            {
+                Id = role.Id,
+                Nom = role.Nom
+            };
+        }
+
     }
 }

@@ -13,14 +13,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADOLibrary", "ADOLibrary\ADOLibrary\ADOLibrary.csproj", "{2B358830-C543-46F5-9170-969934B4B542}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiMiddleware", "ApiMiddleware\ApiMiddleware.csproj", "{4F54B9D7-8061-40C7-B205-789D26291413}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiMiddleware", "ApiMiddleware\ApiMiddleware.csproj", "{4F54B9D7-8061-40C7-B205-789D26291413}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OUtils", "OUtils", "{FB1FCCEC-53C2-4B8D-BA1D-D7F27785552F}"
 	ProjectSection(SolutionItems) = preProject
 		TestCors.html = TestCors.html
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfSignalR", "WpfSignalR\WpfSignalR.csproj", "{BE883DD3-6C19-4435-8C1A-8027FBA049DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfSignalR", "WpfSignalR\WpfSignalR.csproj", "{BE883DD3-6C19-4435-8C1A-8027FBA049DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRTool", "SignalRTool\SignalRTool.csproj", "{E52C0B44-7583-4B80-95F7-E914F3352695}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{BE883DD3-6C19-4435-8C1A-8027FBA049DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE883DD3-6C19-4435-8C1A-8027FBA049DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE883DD3-6C19-4435-8C1A-8027FBA049DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E52C0B44-7583-4B80-95F7-E914F3352695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E52C0B44-7583-4B80-95F7-E914F3352695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E52C0B44-7583-4B80-95F7-E914F3352695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E52C0B44-7583-4B80-95F7-E914F3352695}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

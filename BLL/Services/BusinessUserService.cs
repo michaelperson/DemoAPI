@@ -19,6 +19,11 @@ namespace BLL.Services
             _userRepo = cr;
         }
 
+        public BusinessUser GetBySignalrConnectionId(string signalRConnectionId)
+        {
+            return _userRepo.GetBySignalRId(signalRConnectionId).ToBll();
+        }
+
         public void Delete(int Id)
         {
             if(Id == 1)

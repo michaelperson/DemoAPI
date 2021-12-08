@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace BLL.Interface
 {
-    public interface IUserBusiness<TEntity> 
+    public interface IUserBusiness<TEntity> :IBusiness<TEntity>
         where TEntity : new()
     {
-        IEnumerable<TEntity> GetAll();
-        TEntity GetById(int Id);
+         
         TEntity GetByEmail(string Email);
-        void Delete(int Id);
-        void Insert(TEntity c);
-        void Update(TEntity c);
+         
     }
 }

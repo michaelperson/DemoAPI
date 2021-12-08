@@ -89,5 +89,14 @@ namespace DAL.Services
             Connection conn = new Connection(_connectionString);
             return conn.ExecuteNonQuery(cmd) == 1;
         }
+
+        public User GetBySignalRId(string SignalRId)
+        {
+            string query = "SELECT * FROM [User] WHERE SignalRConnectionId = @Id";
+            Command cmd = new Command(query);
+            cmd.AddParameter("Id", SignalRId);
+            Connection conn = new Connection(_connectionString);
+            return conn.ExecuteReader(cmd, Convert).FirstOrDefault();
+        }
     }
 }

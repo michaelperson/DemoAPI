@@ -32,7 +32,7 @@ namespace DAL.Services
 
             foreach (PropertyInfo item in typeof(T).GetProperties())
             {
-                item.SetValue(retour, reader[item.Name]);
+                item.SetValue(retour, reader[item.Name]!=DBNull.Value?reader[item.Name]:null);
             }
             return retour;
         }

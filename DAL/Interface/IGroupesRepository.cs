@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace DAL.Interface
 {
-    public interface IUserRepository : IRepository<User, int>
+   public interface IGroupesRepository :  IRepository<Groupes, int>
     {
-        
-        User GetByEmail(string Email);
-        User GetBySignalRId(string SignalRId);
+
+
+        IEnumerable<Groupes> GetByUser(int IdUser);
+       
+
+
     }
 }
