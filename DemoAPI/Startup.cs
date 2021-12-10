@@ -157,8 +157,10 @@ namespace DemoAPI
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IContactRepoLibrary, ContactWithLibray>();
+            services.AddScoped<IGroupesRepository, GroupesRepository>();
             services.AddScoped<IContactBusiness<BusinessContact>, BusinessContactService>();
             services.AddScoped<IUserBusiness<BusinessUser>, BusinessUserService>();
+            services.AddScoped<IGroupesBusiness<BusinessGroupes>, BusinessGroupeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

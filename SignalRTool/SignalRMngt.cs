@@ -1,4 +1,5 @@
-﻿using BLL.Models;
+﻿using BLL.Interface;
+using BLL.Models;
 using BLL.Services;
 using DAL.Interface;
 using Microsoft.AspNetCore.Http;
@@ -57,7 +58,10 @@ namespace SignalRTool
         #endregion
 
         #region Manage Groups
-        
+        public IEnumerable<string> GetGroups(int userId, IGroupesBusiness<BusinessGroupes> gr)
+        {
+           return gr.GetByUser(userId).Select(g=>g.Nom);
+        }
 
         #endregion
     }

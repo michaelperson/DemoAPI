@@ -1,5 +1,7 @@
 ﻿using BLL.Interface;
 using BLL.Models;
+using BLL.Tools;
+using DAL.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +12,8 @@ namespace BLL.Services
 {
     public class BusinessGroupeService : IGroupesBusiness<BusinessGroupes>
     {
-        private readonly IBusinessRepository _repo;
-        public BusinessGroupeService(IBusinessRepository repo)
+        private readonly IGroupesRepository _repo;
+        public BusinessGroupeService(IGroupesRepository repo)
         {
             _repo = repo;
         }
@@ -36,7 +38,7 @@ namespace BLL.Services
 
         public IEnumerable<BusinessGroupes> GetByUser(int IdUSer)
         {
-            return _repo.GetAllByUser(IdUSer).Select(m => m.ToBll());
+            return _repo.GetByUser(IdUSer).Select(m => m.ToBll());
         }
 
         public void Insert(BusinessGroupes c)

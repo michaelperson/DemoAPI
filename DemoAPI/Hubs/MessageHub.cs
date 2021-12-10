@@ -17,10 +17,12 @@ namespace DemoAPI.Hubs
     public class MessageHub: Hub<IHubClient>
     {
         IUserBusiness<BusinessUser> _userBusinessService;
+        IGroupesBusiness<BusinessGroupes> _groupeBusinessService;
         ISignalRMngt _signMngt;
-        public MessageHub(IUserBusiness<BusinessUser> userBusinessService)
+        public MessageHub(IUserBusiness<BusinessUser> userBusinessService, IGroupesBusiness<BusinessGroupes> groupeBusinessService)
         {
             _userBusinessService = userBusinessService;
+            _groupeBusinessService = groupeBusinessService;
             _signMngt = new SignalRMngt<IHubClient>(this);
         }
         [Authorize] 
@@ -43,8 +45,11 @@ namespace DemoAPI.Hubs
                 bu.SignalRConnectionId = Context.ConnectionId;
                 _userBusinessService.Update(bu);
 
-                //Récupération des groupes du membre
-                
+                //Récupération des groupes du membre et on y inscrit le membre
+                foreach(string g in _signMngt.GetGroups(bu.Id, _groupeBusinessService))
+                {
+                   JoinGroup(g).Wait();
+                }
             }
             Clients.Others.Connexion();
              
@@ -55,7 +60,7 @@ namespace DemoAPI.Hubs
         {
             Clients.Others.Deconnexion();
 
-             LeaveGroup("Membre").Wait();
+              
             string email = ExtractEmailFromJwt();
 
             if (!string.IsNullOrEmpty(email))
@@ -63,7 +68,11 @@ namespace DemoAPI.Hubs
                 BusinessUser bu = _userBusinessService.GetByEmail(email);
                 bu.SignalRConnectionId =null;
                 _userBusinessService.Update(bu);
-
+                //Récupération des groupes du membre et on les quittes
+                foreach (string g in _signMngt.GetGroups(bu.Id, _groupeBusinessService))
+                {
+                    LeaveGroup(g).Wait();
+                }
             }
 
             return base.OnDisconnectedAsync(exception);

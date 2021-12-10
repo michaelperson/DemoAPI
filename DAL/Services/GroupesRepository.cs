@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Services
 { 
-    public class GroupesRepository : BaseRepository<Groupes>, IRepository<Groupes, int>
+    public class GroupesRepository : BaseRepository<Groupes>, IGroupesRepository
     {
         public GroupesRepository(IConfiguration config) : base(config)
         {
@@ -70,7 +70,7 @@ namespace DAL.Services
             return conn.ExecuteNonQuery(cmd) == 1;
         }
 
-        public IEnumerable<Groupes> GetByUser(string UserId)
+        public IEnumerable<Groupes> GetByUser(int UserId)
         {
             string query = "SELECT Groupes.* FROM [Groupes] inner join [GroupeUser] on Id=IdGroupe WHERE GroupeUser.IdUser = @Id";
             Command cmd = new Command(query);

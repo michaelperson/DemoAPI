@@ -1,5 +1,7 @@
-﻿using BLL.Models;
+﻿using BLL.Interface;
+using BLL.Models;
 using DAL.Interface;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SignalRTool.Interfaces
@@ -8,6 +10,7 @@ namespace SignalRTool.Interfaces
     {
         string ExtractEmailFromJwt();
         BusinessUser FromConnectionId(string SignalRConnectionId, IUserRepository ur);
-        string GetConnectionId(int UserId, IUserRepository ur); 
+        string GetConnectionId(int UserId, IUserRepository ur);
+        IEnumerable<string> GetGroups(int userId, IGroupesBusiness<BusinessGroupes> gr);
     }
 }
