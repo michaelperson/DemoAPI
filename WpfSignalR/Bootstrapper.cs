@@ -8,7 +8,7 @@ namespace WpfSignalR
     {
         protected override DependencyObject CreateShell()
         {
-            return Container.Resolve<Window>();
+            return Container.Resolve<MainWindow>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
