@@ -1,6 +1,7 @@
 ﻿using Prism.Ioc;
 using Prism.Unity;
 using System.Windows;
+using WpfSignalR.Views;
 
 namespace WpfSignalR
 {
@@ -20,7 +21,7 @@ namespace WpfSignalR
         {
             base.InitializeShell(shell); 
 
-            Application.Current.MainWindow = (Window)this.Shell;
+            Application.Current.MainWindow = (MainWindow)this.Shell;
             Application.Current.MainWindow.Show();
         }
     }

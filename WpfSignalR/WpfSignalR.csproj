@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Tools\Infrastructures\BitmapGraphics\icon\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 

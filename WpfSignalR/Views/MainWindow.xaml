@@ -1,0 +1,75 @@
+﻿<metro:MetroWindow x:Class="WpfSignalR.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfSignalR.Views"
+                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:prism="http://prismlibrary.com/"
+                   xmlns:infConstants="clr-namespace:WpfSignalR.Tools.Infrastructures.Constants"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <!-- LeftWindow Commands -->
+    <metro:MetroWindow.LeftWindowCommands>
+        <metro:WindowCommands x:Name="leftWindowCommandsRegion" />
+    </metro:MetroWindow.LeftWindowCommands>
+
+    <!-- RightWindow Commands -->
+    <metro:MetroWindow.RightWindowCommands>
+        <metro:WindowCommands x:Name="rightWindowCommandsRegion" />
+    </metro:MetroWindow.RightWindowCommands>
+
+    <!-- Flyouts -->
+    <metro:MetroWindow.Flyouts>
+        <metro:FlyoutsControl x:Name="flyoutsControlRegion" />
+    </metro:MetroWindow.Flyouts>
+    <metro:MetroContentControl>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <StackPanel Margin="0,10,0,0" Grid.Row="0">
+                <StackPanel Margin="5,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="32"
+                                   Height="32"
+                                   Fill="{Binding Source={StaticResource MahApps.Brushes.Window.FlyoutOverlay}, UpdateSourceTrigger=PropertyChanged}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill"
+                                             Visual="{StaticResource MahApps.Controls.RevealIcon}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <Label Margin="4 0 0 0"
+                               Style="{DynamicResource Header1}"
+                               VerticalAlignment="Center"
+                               Content="Home" />
+                    </StackPanel>
+
+                </StackPanel>
+
+                <Rectangle Margin="2,3,2,3" 
+                           HorizontalAlignment="Stretch" 
+                           Fill="{DynamicResource  MahApps.Brushes.Gray9}" 
+                           Height="4"/>
+            </StackPanel>
+
+            <!-- Main-Region -->
+            <ItemsControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static infConstants:RegionNames.MainRegion}"/>
+
+            <!-- StatusBar -->
+            <StatusBar Grid.Row="2"> 
+                <StatusBarItem>WPF SignalR</StatusBarItem>
+                <StatusBarItem Content="{Binding Path=StatusBarMessage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+            </StatusBar>
+
+        </Grid>
+
+    </metro:MetroContentControl>
+
+</metro:MetroWindow> 
