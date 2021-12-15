@@ -1,0 +1,25 @@
+﻿<StackPanel x:Class="WpfSignalR.Views.Region.RightTitlebarCommands"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfSignalR.Views.Region"
+             xmlns:inf="clr-namespace:WpfSignalR.Tools.Infrastructures"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:constants="clr-namespace:WpfSignalR.Tools.Infrastructures.Constants"
+            xmlns:prism="http://prismlibrary.com/"
+            
+            prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+            VerticalAlignment="Center"
+            d:DesignHeight="30" d:DesignWidth="300">
+    <Button Command="{x:Static inf:ApplicationCommands.ShowFlyoutCommand}"
+            CommandParameter="{x:Static constants:FlyoutNames.ShellSettingsFlyout}">
+        <StackPanel Orientation="Horizontal">
+            <iconPacks:PackIconCodicons Kind="SettingsGear"></iconPacks:PackIconCodicons>
+            <TextBlock Margin="4 0 0 0"
+                       VerticalAlignment="Center"
+                       Text="Configuration" />
+        </StackPanel>
+    </Button>
+</StackPanel>

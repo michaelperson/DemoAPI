@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- Icons 16x16-->
-    <ImageSource x:Key="add_on_16x16">/WpfSignalR.Styling;component/BitmapGraphics/Icons/16x16/add_on.png</ImageSource>
+    <ImageSource x:Key="add_on_16x16">/WpfSignalR;component/Tools/Infrastructures/BitmapGraphics/Icon/16x16/add_on.png</ImageSource>
 
     <!-- Icons 32x32 -->
-    <ImageSource x:Key="add_on_32x32">/PrismMahAppsSample.Styling;component/BitmapGraphics/Icons/32x32/add_on.png</ImageSource>
+    <ImageSource x:Key="add_on_32x32">/WpfSignalR;component/Tools/Infrastructures/BitmapGraphics/Icon/32x32/add_on.png</ImageSource>
 </ResourceDictionary>

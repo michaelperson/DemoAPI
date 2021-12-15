@@ -1,16 +1,12 @@
 ﻿using MahApps.Metro.Controls;
 using Prism.Commands;
 using Prism.Regions;
-using System;
-using System.Collections.Generic;
+using PrismMahAppsSample.Infrastructure.Constants;
+using PrismMahAppsSample.Infrastructure.Interfaces;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using WpfSignalR.Tools.Infrastructures.Constants;
-using WpfSignalR.Tools.Infrastructures.Interfaces;
 
-namespace WpfSignalR.Tools.Infrastructures.Behaviors
+namespace PrismMahAppsSample.Infrastructure.Services
 {
     public class FlyoutService : IFlyoutService
     {

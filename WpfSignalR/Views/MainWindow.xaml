@@ -4,11 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfSignalR.Views"
-                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:prism="http://prismlibrary.com/"
-                   xmlns:infConstants="clr-namespace:WpfSignalR.Tools.Infrastructures.Constants"
+        xmlns:infConstants="clr-namespace:WpfSignalR.Tools.Infrastructures.Constants"
+        xmlns:infBehaviors="clr-namespace:WpfSignalR.Tools.Infrastructures.Behaviors"    
+        infBehaviors:RegionPopupBehaviors.CreatePopupRegionWithName="{x:Static infConstants:RegionNames.DialogPopupRegion}"
+        infBehaviors:RegionPopupBehaviors.ContainerWindowStyle="{StaticResource PopupRegionWindowStyle}"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        ResizeMode="CanResizeWithGrip"           
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        Title="Wpf SignalR V1.0" Height="450" Width="800">
     <!-- LeftWindow Commands -->
     <metro:MetroWindow.LeftWindowCommands>
         <metro:WindowCommands x:Name="leftWindowCommandsRegion" />
@@ -16,7 +23,7 @@
 
     <!-- RightWindow Commands -->
     <metro:MetroWindow.RightWindowCommands>
-        <metro:WindowCommands x:Name="rightWindowCommandsRegion" />
+        <metro:WindowCommands Foreground="White" x:Name="rightWindowCommandsRegion" />
     </metro:MetroWindow.RightWindowCommands>
 
     <!-- Flyouts -->
@@ -37,25 +44,21 @@
             <StackPanel Margin="0,10,0,0" Grid.Row="0">
                 <StackPanel Margin="5,0,0,0">
                     <StackPanel Orientation="Horizontal">
-                        <Rectangle Width="32"
-                                   Height="32"
-                                   Fill="{Binding Source={StaticResource MahApps.Brushes.Window.FlyoutOverlay}, UpdateSourceTrigger=PropertyChanged}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill"
-                                             Visual="{StaticResource MahApps.Controls.RevealIcon}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
+                        <iconPacks:PackIconControl Kind="{x:Static iconPacks:PackIconCodiconsKind.Bell}"
+                           Width="24" VerticalAlignment="Center"
+                           Height="24" />
+
                         <Label Margin="4 0 0 0"
                                Style="{DynamicResource Header1}"
                                VerticalAlignment="Center"
-                               Content="Home" />
+                               Content="Wpf SignalR" />
                     </StackPanel>
 
                 </StackPanel>
 
                 <Rectangle Margin="2,3,2,3" 
                            HorizontalAlignment="Stretch" 
-                           Fill="{DynamicResource  MahApps.Brushes.Gray9}" 
+                           Fill="{DynamicResource MahApps.Brushes.Badged.Background}" 
                            Height="4"/>
             </StackPanel>
 
@@ -63,8 +66,10 @@
             <ItemsControl Grid.Row="1" prism:RegionManager.RegionName="{x:Static infConstants:RegionNames.MainRegion}"/>
 
             <!-- StatusBar -->
-            <StatusBar Grid.Row="2"> 
-                <StatusBarItem>WPF SignalR</StatusBarItem>
+            <StatusBar Grid.Row="2">
+                <StatusBarItem>Wpf + SignalR DEMO Application</StatusBarItem>
+                <Separator Style="{StaticResource MahApps.Styles.Separator.StatusBar}" />
+                <StatusBarItem Content="@cognitic" />
                 <StatusBarItem Content="{Binding Path=StatusBarMessage, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
             </StatusBar>
 
@@ -72,4 +77,4 @@
 
     </metro:MetroContentControl>
 
-</metro:MetroWindow> 
+</metro:MetroWindow>
