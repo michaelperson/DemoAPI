@@ -1,5 +1,6 @@
 ﻿using CommonServiceLocator;
 using Microsoft.Extensions.DependencyInjection;
+using Prism.Events;
 using Prism.Ioc;
 using Prism.Regions;
 using Prism.Unity;
@@ -30,6 +31,7 @@ namespace WpfSignalR
 
         private void ConfigureServices(ServiceCollection services)
         {
+            services.AddScoped<IEventAggregator, EventAggregator>();
             services.AddScoped<IContainerProvider>((m) => this.Container);
             services.AddScoped<IApplicationCommands, ApplicationCommandsProxy>();
             services.AddScoped<IFlyoutService, FlyoutService>();
@@ -64,7 +66,8 @@ namespace WpfSignalR
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        { 
+        {
+            
             ServiceCollection services = new ServiceCollection();
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
