@@ -10,17 +10,40 @@
                 xmlns:prism="http://prismlibrary.com/" 
                 xmlns:infConstants="clr-namespace:WpfSignalR.Tools.Infrastructures.Constants"  
                xmlns:inf="clr-namespace:WpfSignalR.Tools.Infrastructures"
+             
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                 prism:ViewModelLocator.AutoWireViewModel="True"
              >
     <StackPanel Orientation="Horizontal">
-        <metro:Tile Title="Configuration" 
+        <metro:Tile Title="Profil" 
+                    Background="YellowGreen"
+                     Foreground="{StaticResource MahApps.Brushes.AccentBase}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"                    
                     Command="{x:Static inf:ApplicationCommands.ShowFlyoutCommand}"
                     CommandParameter="{x:Static infConstants:FlyoutNames.ShellSettingsFlyout}"                  
                     TiltFactor="1"                    
                     Width="120" 
-                    Height="100" />
+                    Height="100" >
+            <Grid>
+                <iconPacks:PackIconCodicons Kind="Account" Foreground="{StaticResource MahApps.Brushes.AccentBase}" Height="50" Width="50"/>
+            </Grid>
+
+        </metro:Tile>
+        <metro:Tile Title="Mes Groupes" 
+                    Background="NavajoWhite"
+                     Foreground="{StaticResource MahApps.Brushes.AccentBase}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"                    
+                    Command="{x:Static inf:ApplicationCommands.ShowFlyoutCommand}"
+                    CommandParameter="{x:Static infConstants:FlyoutNames.ShellSettingsFlyout}"                  
+                    TiltFactor="1"                    
+                    Width="120" 
+                    Height="100" >
+            <Grid>
+                <iconPacks:PackIconCodicons Kind="GroupByRefType" Foreground="{StaticResource MahApps.Brushes.AccentBase}" Height="50" Width="50"/>
+            </Grid>
+        </metro:Tile>
     </StackPanel>
  
 </UserControl>

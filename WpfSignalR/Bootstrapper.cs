@@ -30,11 +30,12 @@ namespace WpfSignalR
 
         private void ConfigureServices(ServiceCollection services)
         {
-
+            services.AddScoped<IContainerProvider>((m) => this.Container);
             services.AddScoped<IApplicationCommands, ApplicationCommandsProxy>();
             services.AddScoped<IFlyoutService, FlyoutService>();
             services.AddScoped<IMetroMessageDisplayService, MetroMessageDisplayService>();
             services.AddSingleton<IRegionManager>((m) => this.Container.Resolve<IRegionManager>());
+            
         }
 
 
@@ -63,7 +64,7 @@ namespace WpfSignalR
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
+        { 
             ServiceCollection services = new ServiceCollection();
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
