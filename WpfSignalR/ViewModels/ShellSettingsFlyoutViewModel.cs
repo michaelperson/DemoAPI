@@ -1,42 +1,39 @@
-﻿using MahApps.Metro;
-using Microsoft.Practices.Unity;
-using PrismMahAppsSample.Infrastructure.Base;
-using PrismMahAppsSample.Infrastructure.Constants;
-using PrismMahAppsSample.Infrastructure.Events;
-using PrismMahAppsSample.Infrastructure.Interfaces;
-using PrismMahAppsSample.Shell.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfSignalR.Tools.Infrastructures.Base;
+using MahApps.Metro;
+using WpfSignalR.Models.visual;
 using System.Windows;
+using WpfSignalR.Tools.Infrastructures.Events;
+using System.Globalization;
+using ControlzEx.Theming;
 using System.Windows.Media;
 
-namespace PrismMahAppsSample.Shell.ViewModels
+namespace WpfSignalR.ViewModels
 {
     public class ShellSettingsFlyoutViewModel : ViewModelBase
     {
-        private ILocalizerService localizerService = null;
+        
 
         #region CTOR
-        
+
         /// <summary>
         /// CTOR
         /// </summary>
         public ShellSettingsFlyoutViewModel()
         {
-            this.localizerService = Container.Resolve<ILocalizerService>(ServiceNames.LocalizerService);
-
+            
             // create metro theme color menu items for the demo
-            this.ApplicationThemes = ThemeManager.AppThemes
+            this.ApplicationThemes = ThemeManager.Current.Themes
                                            .Select(a => new ApplicationTheme() { Name = a.Name, BorderColorBrush = a.Resources["BlackColorBrush"] as Brush, ColorBrush = a.Resources["WhiteColorBrush"] as Brush })
                                            .ToList();
 
             // create accent colors list
-            this.AccentColors = ThemeManager.Accents
-                                            .Select(a => new AccentColor() { Name = a.Name, ColorBrush = a.Resources["AccentColorBrush"] as Brush })
+            this.AccentColors = ThemeManager.Current.ColorSchemes
+                                            .Select(a => new AccentColor() { Name = "Cyan", ColorBrush= Brushes.Cyan })
                                             .ToList();
 
             this.SelectedTheme = this.ApplicationThemes.FirstOrDefault();
@@ -81,9 +78,9 @@ namespace PrismMahAppsSample.Shell.ViewModels
             {
                 if (this.SetProperty<ApplicationTheme>(ref this.selectedTheme, value))
                 {
-                    var theme = ThemeManager.DetectAppStyle(Application.Current);
-                    var appTheme = ThemeManager.GetAppTheme(value.Name);
-                    ThemeManager.ChangeAppStyle(Application.Current, theme.Item2, appTheme);
+                    var theme = ThemeManager.Current.DetectTheme(Application.Current);
+                    var appTheme = ThemeManager.Current.GetTheme(value.Name);
+                    ThemeManager.Current.ChangeTheme(Application.Current, appTheme);
 
                     EventAggregator.GetEvent<StatusBarMessageUpdateEvent>().Publish(String.Format("Theme changed to {0}", value.Name));
                 }
@@ -102,9 +99,9 @@ namespace PrismMahAppsSample.Shell.ViewModels
             {
                 if (this.SetProperty<AccentColor>(ref this.selectedAccentColor, value))
                 {
-                    var theme = ThemeManager.DetectAppStyle(Application.Current);
-                    var accent = ThemeManager.GetAccent(value.Name);
-                    ThemeManager.ChangeAppStyle(Application.Current, accent, theme.Item1);
+                    var theme = ThemeManager.Current.DetectTheme(Application.Current);
+                    var accent = ThemeManager.Current.GetTheme(value.Name);
+                    //ThemeManager.ChangeAppStyle(Application.Current, accent, theme.Item1);
 
                     EventAggregator.GetEvent<StatusBarMessageUpdateEvent>().Publish(String.Format("Accent color changed to {0}", value.Name));
                 }
@@ -112,38 +109,8 @@ namespace PrismMahAppsSample.Shell.ViewModels
         }
 
 
-        /// <summary>
-        /// Supported languages
-        /// </summary>
-        public IList<CultureInfo> SupportedLanguages
-        {
-            get
-            {
-                if (localizerService != null)
-                {
-                    return localizerService.SupportedLanguages;
-                }
-
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// The selected language
-        /// </summary>
-        public CultureInfo SelectedLanguage
-        {
-            get { return (localizerService != null) ? localizerService.SelectedLanguage : null; }
-            set
-            {
-                if (value != null && value != this.localizerService.SelectedLanguage)
-                {
-                    if (localizerService != null)
-                        this.localizerService.SelectedLanguage = value;
-                }
-
-            }
-        }
+        
+        
 
         #endregion Properties
     }

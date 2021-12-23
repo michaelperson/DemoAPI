@@ -6,6 +6,7 @@ using Prism.Regions;
 using Prism.Unity;
 using System.ComponentModel.Design;
 using System.Windows;
+using Unity;
 using Unity.Lifetime;
 using WpfSignalR.Tools.Infrastructures;
 using WpfSignalR.Tools.Infrastructures.Constants;
@@ -29,20 +30,28 @@ namespace WpfSignalR
 
         }
 
+        private void ConfigureContainer()
+        {
+            // Application commands
+            Container.GetContainer().RegisterType<IApplicationCommands, ApplicationCommandsProxy>();
+            //// Flyout service
+            Container.GetContainer().RegisterInstance(typeof(FlyoutService), "FlyoutService", Container.Resolve<FlyoutService>(), InstanceLifetime.Singleton);
+        }
+
         private void ConfigureServices(ServiceCollection services)
         {
-            services.AddScoped<IEventAggregator, EventAggregator>();
-            services.AddScoped<IContainerProvider>((m) => this.Container);
-            services.AddScoped<IApplicationCommands, ApplicationCommandsProxy>();
-            services.AddScoped<IFlyoutService, FlyoutService>();
-            services.AddScoped<IMetroMessageDisplayService, MetroMessageDisplayService>();
+
+
+            services.AddSingleton<IEventAggregator, EventAggregator>();
+            services.AddSingleton<IContainerProvider>((m) => this.Container); 
+            services.AddSingleton<IMetroMessageDisplayService, MetroMessageDisplayService>();
             services.AddSingleton<IRegionManager>((m) => this.Container.Resolve<IRegionManager>());
-            
+
         }
 
 
-       
-         
+
+
 
         protected override void InitializeShell(DependencyObject shell)
         {
@@ -67,10 +76,12 @@ namespace WpfSignalR
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+           
             ServiceCollection services = new ServiceCollection();
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
+
+            ConfigureContainer();
         }
     }
 }

@@ -13,17 +13,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfSignalR.Tools.Infrastructures.Interfaces;
 
 namespace WpfSignalR.Views.Region
 {
     /// <summary>
     /// Interaction logic for ShellSettingsFlyout.xaml
     /// </summary>
-    public partial class ShellSettingsFlyout : Flyout
+    public partial class ShellSettingsFlyout : IFlyoutView
     {
         public ShellSettingsFlyout()
         {
             InitializeComponent();
         }
+
+        public string FlyoutName => "ShellSettingsFlyout";
     }
 }
