@@ -14,6 +14,7 @@ using WpfSignalR.Tools.Infrastructures.Interfaces;
 using WpfSignalR.Tools.Infrastructures.Services;
 using WpfSignalR.Views;
 using WpfSignalR.Views.Region;
+using WpfSignalR.Views.Region.Flyout;
 
 namespace WpfSignalR
 {
@@ -64,9 +65,11 @@ namespace WpfSignalR
                 // Add right windows commands
                 regionManager.RegisterViewWithRegion(RegionNames.RightWindowCommandsRegion, typeof(RightTitlebarCommands));
                 //// Add flyouts
+                regionManager.RegisterViewWithRegion(RegionNames.FlyoutRegion, typeof(ProfilFlyOut));
                 regionManager.RegisterViewWithRegion(RegionNames.FlyoutRegion, typeof(ShellSettingsFlyout));
                 // Add tiles to MainRegion
                 regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(HomeTiles));
+                regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(Login));
             }
 
 

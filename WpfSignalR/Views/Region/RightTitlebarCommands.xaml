@@ -14,12 +14,12 @@
             VerticalAlignment="Center"
             d:DesignHeight="30" d:DesignWidth="300">
     <Button Command="{x:Static inf:ApplicationCommands.ShowFlyoutCommand}"
-            CommandParameter="{x:Static constants:FlyoutNames.ShellSettingsFlyout}">
+            CommandParameter="{x:Static constants:FlyoutNames.ProfilFlyout}">
         <StackPanel Orientation="Horizontal">
-            <iconPacks:PackIconCodicons Kind="SettingsGear"></iconPacks:PackIconCodicons>
+            <iconPacks:PackIconCodicons Kind="Account"></iconPacks:PackIconCodicons>
             <TextBlock Margin="4 0 0 0"
                        VerticalAlignment="Center"
-                       Text="Configuration" />
+                       Text="Profils" />
         </StackPanel>
     </Button>
 </StackPanel>
