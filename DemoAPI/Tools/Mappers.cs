@@ -11,6 +11,7 @@ namespace DemoAPI.Tools
     {
         public static ContactForm ToApi(this BusinessContact bc)
         {
+            if (bc == null) return null;
             return new ContactForm
             {
                 Id = bc.Id,
@@ -22,6 +23,7 @@ namespace DemoAPI.Tools
 
         public static BusinessContact ToBLL(this ContactForm c)
         {
+            if (c == null) return null;
             return new BusinessContact
             {
                 Id = c.Id,
@@ -33,6 +35,7 @@ namespace DemoAPI.Tools
 
         public static UserModel  ToApi(this BusinessUser bu)
         {
+            if (bu == null) return null;
             return new UserModel
             {
                 Id = bu.Id,
@@ -49,6 +52,7 @@ namespace DemoAPI.Tools
 
         public static BusinessUser ToBLL(this UserModel u)
         {
+            if (u == null) return null;
             return new BusinessUser
             {
                 Id = u.Id,
@@ -64,6 +68,7 @@ namespace DemoAPI.Tools
 
         public static RolesModel ToApi(this BusinessRoles bc)
         {
+            if (bc == null) return null;
             return new RolesModel
             {
                 Id = bc.Id,
@@ -73,6 +78,7 @@ namespace DemoAPI.Tools
 
         public static BusinessRoles ToBLL(this RolesModel c)
         {
+            if (c == null) return null;
             return new BusinessRoles
             {
                 Id = c.Id,
