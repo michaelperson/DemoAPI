@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfSignalR.Tools.Infrastructures.Constants;
+using WpfSignalR.Tools.Infrastructures.Interfaces;
 
 namespace WpfSignalR.Views
 {
@@ -33,6 +34,8 @@ namespace WpfSignalR.Views
                 SetRegionManager(regionManager, this.rightWindowCommandsRegion, RegionNames.RightWindowCommandsRegion);
                 SetRegionManager(regionManager, this.flyoutsControlRegion, RegionNames.FlyoutRegion);
             }
+ 
+
         }
 
         #region Private

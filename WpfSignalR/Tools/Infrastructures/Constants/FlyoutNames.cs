@@ -12,6 +12,8 @@ namespace WpfSignalR.Tools.Infrastructures.Constants
         public static string ShellSettingsFlyout = "ShellSettingsFlyout";
         public static string ProfilFlyout = "ProfilFlyout";
 
+        
+
         // ModuleA-Flyouts
         public static string ModuleAC1Flyout = "ModuleAC1Flyout";
         public static string ModuleAC2Flyout = "ModuleAC2Flyout";

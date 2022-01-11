@@ -10,11 +10,13 @@ namespace WpfSignalR.Tools.Infrastructures
     public static class ApplicationCommands
     {
         public static CompositeCommand ShowFlyoutCommand = new CompositeCommand();
+        public static CompositeCommand NavigateToCommand = new CompositeCommand();
     }
 
     public interface IApplicationCommands
     {
         CompositeCommand ShowFlyoutCommand { get; }
+        CompositeCommand NavigateToCommand { get; }
     }
 
     public class ApplicationCommandsProxy : IApplicationCommands
@@ -22,6 +24,10 @@ namespace WpfSignalR.Tools.Infrastructures
         public CompositeCommand ShowFlyoutCommand
         {
             get { return ApplicationCommands.ShowFlyoutCommand; }
+        }
+        public CompositeCommand NavigateToCommand
+        {
+            get { return ApplicationCommands.NavigateToCommand; }
         }
     }
 }

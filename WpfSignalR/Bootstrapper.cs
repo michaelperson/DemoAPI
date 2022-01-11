@@ -26,17 +26,23 @@ namespace WpfSignalR
         protected override DependencyObject CreateShell()
         {
 
-
+            
             return Container.Resolve<MainWindow>();
 
         }
 
         private void ConfigureContainer()
         {
+            Container.GetContainer().RegisterType<INavigateToService, NavigateService>();
             // Application commands
             Container.GetContainer().RegisterType<IApplicationCommands, ApplicationCommandsProxy>();
+            //// Navigation service 
+            Container.GetContainer().RegisterInstance(typeof(INavigateToService), "NavigateService", Container.Resolve<NavigateService>(), InstanceLifetime.Singleton);
             //// Flyout service
             Container.GetContainer().RegisterInstance(typeof(FlyoutService), "FlyoutService", Container.Resolve<FlyoutService>(), InstanceLifetime.Singleton);
+
+            
+             
         }
 
         private void ConfigureServices(ServiceCollection services)
@@ -67,9 +73,9 @@ namespace WpfSignalR
                 //// Add flyouts
                 regionManager.RegisterViewWithRegion(RegionNames.FlyoutRegion, typeof(ProfilFlyOut));
                 regionManager.RegisterViewWithRegion(RegionNames.FlyoutRegion, typeof(ShellSettingsFlyout));
-                // Add tiles to MainRegion
-                regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(HomeTiles));
+                // Add LOgin to MainRegion                
                 regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(Login));
+                
             }
 
 
@@ -84,7 +90,14 @@ namespace WpfSignalR
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
 
+            ConfigureNavigation(containerRegistry);
             ConfigureContainer();
+        }
+
+        private void ConfigureNavigation(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.RegisterForNavigation(typeof(HomeTiles), UCNames.Home);
+            containerRegistry.RegisterForNavigation(typeof(Login), UCNames.Login);
         }
     }
 }

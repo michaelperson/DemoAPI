@@ -18,6 +18,7 @@ namespace WpfSignalR.Views.Region
     /// <summary>
     /// Interaction logic for HomeTiles.xaml
     /// </summary>
+     
     public partial class HomeTiles : UserControl
     {
         public HomeTiles()

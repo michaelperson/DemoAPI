@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WpfSignalR.Tools.Infrastructures.Constants
 {
-    public static class WindowNames
+    public static class UCNames
     {
-
-        public static string MainWindowName = "MainWindow"; 
+        public static string Home = "HomeTiles";
+        public static string Login = "Login";
     }
 }

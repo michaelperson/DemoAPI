@@ -1,0 +1,52 @@
+﻿using Prism.Commands;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security;
+using System.Text;
+using System.Threading.Tasks;
+using WpfSignalR.Tools.Infrastructures.Base;
+using WpfSignalR.Tools.Infrastructures.Interfaces;
+using WpfSignalR.Tools.Infrastructures.Security;
+using WpfSignalR.Tools.Infrastructures.Services;
+
+namespace WpfSignalR.ViewModels
+{
+    public class LoginViewModel : ViewModelBase
+    {
+
+
+        private readonly INavigateToService _navigateToService;       
+
+        private DelegateCommand _loginCmd;
+        private string _login;
+        private SecureString _password;
+
+        public DelegateCommand LoginCmd { get => _loginCmd=_loginCmd??new DelegateCommand(LogMe, CanLogMe); }
+        public string Login { get => _login; set { _login = value; LoginCmd.RaiseCanExecuteChanged(); } }
+        public SecureString Password { get => _password; 
+            set { 
+                _password = value; LoginCmd.RaiseCanExecuteChanged(); 
+            }
+}
+
+        public LoginViewModel(INavigateToService navigateToService) : base()
+        {
+            _navigateToService = navigateToService;
+        }
+
+        private void LogMe()
+        {
+            string pass = SecurityTools.SecureStringToString(this.Password);
+
+            
+
+            _navigateToService.NavigateToCommand.Execute("HomeTiles");
+        }
+
+        private bool CanLogMe()
+        {
+            return (!string.IsNullOrWhiteSpace(Login) && Password != null) ;
+        }
+    }
+}
