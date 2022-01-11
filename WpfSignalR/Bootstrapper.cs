@@ -4,10 +4,12 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Regions;
 using Prism.Unity;
+using System;
 using System.ComponentModel.Design;
 using System.Windows;
 using Unity;
 using Unity.Lifetime;
+using Unity.Resolution;
 using WpfSignalR.Tools.Infrastructures;
 using WpfSignalR.Tools.Infrastructures.Constants;
 using WpfSignalR.Tools.Infrastructures.Interfaces;
@@ -40,9 +42,11 @@ namespace WpfSignalR
             Container.GetContainer().RegisterInstance(typeof(INavigateToService), "NavigateService", Container.Resolve<NavigateService>(), InstanceLifetime.Singleton);
             //// Flyout service
             Container.GetContainer().RegisterInstance(typeof(FlyoutService), "FlyoutService", Container.Resolve<FlyoutService>(), InstanceLifetime.Singleton);
-
-            
+            ////IApiRequesterService
              
+            Container.GetContainer().RegisterInstance(typeof(IApiRequesterService), "ApiRequesterService", Container.Resolve<ApiRequesterService>(), InstanceLifetime.Singleton);
+
+
         }
 
         private void ConfigureServices(ServiceCollection services)

@@ -16,7 +16,8 @@ namespace WpfSignalR.ViewModels
     {
 
 
-        private readonly INavigateToService _navigateToService;       
+        private readonly INavigateToService _navigateToService;
+        private readonly IApiRequesterService _apiRequesterService;
 
         private DelegateCommand _loginCmd;
         private string _login;
@@ -30,9 +31,10 @@ namespace WpfSignalR.ViewModels
             }
 }
 
-        public LoginViewModel(INavigateToService navigateToService) : base()
+        public LoginViewModel(INavigateToService navigateToService, IApiRequesterService ApiRequesterService) : base()
         {
             _navigateToService = navigateToService;
+            _apiRequesterService = ApiRequesterService;
         }
 
         private void LogMe()

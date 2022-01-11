@@ -25,13 +25,14 @@ namespace WpfSignalR.Views.Region
    
     public partial class Login : UserControl, INavigationAware
     {
-        private readonly INavigateToService navigateToService;
+        private readonly INavigateToService _navigateToService;
+        private readonly IApiRequesterService _apiRequesterService;
         [InjectionConstructor]
-        public Login(INavigateToService navigateToService)
+        public Login(INavigateToService navigateToService, IApiRequesterService ApiRequesterService)
         {
             InitializeComponent();
-            this.navigateToService = navigateToService;
-            this.DataContext = new LoginViewModel(navigateToService);
+            this._navigateToService = navigateToService;
+            this.DataContext = new LoginViewModel(navigateToService, ApiRequesterService);
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
@@ -53,7 +54,7 @@ namespace WpfSignalR.Views.Region
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            this.DataContext = new LoginViewModel(navigateToService);
+            this.DataContext = new LoginViewModel(_navigateToService, _apiRequesterService);
         } 
         #endregion
     }
