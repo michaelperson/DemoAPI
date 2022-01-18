@@ -95,7 +95,7 @@ namespace DemoAPI.Controllers
             {
 
                 //logger l'exception
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>

@@ -8,5 +8,5 @@
     [Salt] VARBINARY(128) NOT NULL, 
     [IdRole] INT NULL, 
     [SignalRConnectionId] NVARCHAR(250) NULL, 
-    CONSTRAINT [FK_User_ToRole] FOREIGN KEY (IdRole) REFERENCES Roles(id)
+    CONSTRAINT [FK_User_ToRole] FOREIGN KEY (IdRole) REFERENCES Roles(Id)
 )

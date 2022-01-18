@@ -10,5 +10,6 @@ namespace WpfSignalR.Tools.Infrastructures.Interfaces
     public interface IApiRequesterService
     {
         bool Login(LoginModel lm);
+        UserModel GetConnectedUserInfo();
     }
 }

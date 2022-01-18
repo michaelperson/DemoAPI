@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,9 +13,7 @@ namespace WpfSignalR.Tools.Infrastructures.Services
 {
     public class ApiRequesterService : RequesterService, IApiRequesterService
     {
-        string _jwt;
-
-        public string Jwt { get => _jwt;  }
+         
 
         public ApiRequesterService(string baseUrl) : base(baseUrl)
         {
@@ -24,7 +24,24 @@ namespace WpfSignalR.Tools.Infrastructures.Services
 
             Task t = this.Execute("/Account/Login", JsonConvert.SerializeObject(lm), Method.POST, true);
             t.Wait();
-            return t.IsCompletedSuccessfully;
+            if (t.IsCanceled || t.IsFaulted) return false;
+            else
+             
+                return t.IsCompletedSuccessfully;
+        }
+
+        public UserModel GetConnectedUserInfo()
+        {
+            if (this.Token == null) return null;
+            //Extract Id from Jwt
+            string jwt = Security.SecurityTools.SecureStringToString(this.Token);
+            JwtSecurityTokenHandler Handler = new JwtSecurityTokenHandler();
+            SecurityToken token =Handler.ReadToken(jwt.Replace("\"",""));
+            
+            
+
+            return default(UserModel);
+
         }
     }
 }

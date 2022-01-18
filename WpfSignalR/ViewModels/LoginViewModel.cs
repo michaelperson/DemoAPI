@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using WpfSignalR.Models;
 using WpfSignalR.Tools.Infrastructures.Base;
 using WpfSignalR.Tools.Infrastructures.Interfaces;
 using WpfSignalR.Tools.Infrastructures.Security;
@@ -44,6 +45,7 @@ namespace WpfSignalR.ViewModels
            bool rep = _apiRequesterService.Login(new Models.LoginModel() { Email = this.Login, Password = pass });
                  if(rep)
             {
+                UserModel um = _apiRequesterService.GetConnectedUserInfo();
                 _navigateToService.NavigateToCommand.Execute("HomeTiles");
             }
                          

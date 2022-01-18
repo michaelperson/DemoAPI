@@ -17,6 +17,8 @@ namespace WpfSignalR.Tools.Infrastructures.Services
         public enum Method { GET,POST,PUT, PATCH, DELETE};
         private readonly HttpClient  client;
         private readonly string URL;
+
+        protected SecureString Token { get { return Jwt; } }
         public RequesterService(string baseUrl)
         {
             client = new HttpClient();
