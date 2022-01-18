@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -36,6 +38,30 @@ namespace WpfSignalR.Tools.Infrastructures.Security
 
             securePassword.MakeReadOnly();
             return securePassword;
+        }
+    
+        public static bool ExtractInfoFromJwt(SecureString token)
+        {
+            try
+            {
+                if (token == null) return false;
+                //Extract Id from Jwt
+                string jwt = SecureStringToString(token);
+                JwtSecurityTokenHandler Handler = new JwtSecurityTokenHandler();
+                JwtSecurityToken Infos = Handler.ReadToken(jwt.Replace("\"", "")) as JwtSecurityToken;
+
+                Global.UserInfos.Id = int.Parse(Infos.Id);
+                Global.UserInfos.Role = Infos.Claims.FirstOrDefault(m => m.Subject.Name == "Role").Value;
+                Global.UserInfos.Name = Infos.Claims.FirstOrDefault(m => m.Subject.Name == "Name").Value;
+                Global.UserInfos.Email = Infos.Claims.FirstOrDefault(m => m.Subject.Name == "Email").Value;
+
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

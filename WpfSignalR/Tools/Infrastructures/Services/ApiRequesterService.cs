@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WpfSignalR.Models;
 using WpfSignalR.Tools.Infrastructures.Interfaces;
+using WpfSignalR.Tools.Infrastructures.Security;
 
 namespace WpfSignalR.Tools.Infrastructures.Services
 {
@@ -26,22 +27,12 @@ namespace WpfSignalR.Tools.Infrastructures.Services
             t.Wait();
             if (t.IsCanceled || t.IsFaulted) return false;
             else
-             
+            {
+                SecurityTools.ExtractInfoFromJwt(this.Token);
                 return t.IsCompletedSuccessfully;
+            }
         }
 
-        public UserModel GetConnectedUserInfo()
-        {
-            if (this.Token == null) return null;
-            //Extract Id from Jwt
-            string jwt = Security.SecurityTools.SecureStringToString(this.Token);
-            JwtSecurityTokenHandler Handler = new JwtSecurityTokenHandler();
-            SecurityToken token =Handler.ReadToken(jwt.Replace("\"",""));
-            
-            
-
-            return default(UserModel);
-
-        }
+         
     }
 }

@@ -55,7 +55,7 @@ namespace WpfSignalR.Tools.Infrastructures.Services
                 default:
                     break;
             }
-
+            
         }
 
         private async Task<bool> Post(string urlParameters)
@@ -80,7 +80,7 @@ namespace WpfSignalR.Tools.Infrastructures.Services
                 else
                 {
                     Debug.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
-                    return false;
+                    throw new Exception(String.Format("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase));
                 }
             }
             catch (Exception ex)

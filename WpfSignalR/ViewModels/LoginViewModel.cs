@@ -45,7 +45,7 @@ namespace WpfSignalR.ViewModels
            bool rep = _apiRequesterService.Login(new Models.LoginModel() { Email = this.Login, Password = pass });
                  if(rep)
             {
-                UserModel um = _apiRequesterService.GetConnectedUserInfo();
+                
                 _navigateToService.NavigateToCommand.Execute("HomeTiles");
             }
                          
