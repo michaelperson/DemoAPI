@@ -4,13 +4,16 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using WpfSignalR.Tools.Infrastructures.Security;
 
 namespace WpfSignalR.Tools.Infrastructures.Services
 {
     public abstract class RequesterService  
     {
+        private SecureString Jwt;
         public enum Method { GET,POST,PUT, PATCH, DELETE};
         private readonly HttpClient  client;
         private readonly string URL;
@@ -39,53 +42,49 @@ namespace WpfSignalR.Tools.Infrastructures.Services
 
             switch (method)
             {
-                case Method.GET: await Get(urlParameters);
-                                break;
+                case Method.GET:  await Get(urlParameters);break;
+                     
                 case Method.POST:
-                    await Post(urlParameters);
-                    break;
-                    break;
-                case Method.PUT:
-                    break;
-                case Method.PATCH:
-                    break;
-                case Method.DELETE:
-                    break;
+                     await Post(urlParameters);  break;                   
+                     
+                case Method.PUT: break;
+                case Method.PATCH: break;
+                case Method.DELETE: break;
                 default:
                     break;
             }
 
-
         }
 
-        private async Task Post(string urlParameters)
+        private async Task<bool> Post(string urlParameters)
         {
             try
             {
-                HttpContent content = new StringContent(urlParameters);
+                HttpContent content = new StringContent(urlParameters, Encoding.UTF8, "application/json");
 
 
-                client.BaseAddress = new Uri(client.BaseAddress.ToString() + urlParameters);
+                client.BaseAddress = new Uri(client.BaseAddress.ToString());
 
-                HttpResponseMessage response = await client.PostAsync("", content);
+                HttpResponseMessage response = client.PostAsync("", content).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     Task<string> jsonString = response.Content.ReadAsStringAsync();
 
                     jsonString.Wait();
                     await Task.CompletedTask;
-
+                    Jwt = SecurityTools.ConvertToSecureString(jsonString.Result);
+                    return true ;
                 }
                 else
                 {
                     Debug.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
-                    await Task.FromResult<string>($"{response.StatusCode} ({response.ReasonPhrase})");
+                    return false;
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("{0} ({1})", "HttpException", ex.Message);
-                await Task.FromException(ex);
+                return false;
             }
         }
 

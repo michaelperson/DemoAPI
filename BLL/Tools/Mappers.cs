@@ -34,6 +34,7 @@ namespace BLL.Tools
 
         public static BusinessUser ToBll(this User user)
         {
+            if (user == null) return null;
             return new BusinessUser
             {
                 Id = user.Id,

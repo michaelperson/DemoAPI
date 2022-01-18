@@ -41,9 +41,15 @@ namespace WpfSignalR.ViewModels
         {
             string pass = SecurityTools.SecureStringToString(this.Password);
 
+           bool rep = _apiRequesterService.Login(new Models.LoginModel() { Email = this.Login, Password = pass });
+                 if(rep)
+            {
+                _navigateToService.NavigateToCommand.Execute("HomeTiles");
+            }
+                         
+                     
+;
             
-
-            _navigateToService.NavigateToCommand.Execute("HomeTiles");
         }
 
         private bool CanLogMe()

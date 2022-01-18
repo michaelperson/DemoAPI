@@ -23,5 +23,19 @@ namespace WpfSignalR.Tools.Infrastructures.Security
                 Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
             }
         }
+
+        public static SecureString ConvertToSecureString(string value)
+        {
+            if (value == null)
+                throw new ArgumentNullException("value");
+
+            var securePassword = new SecureString();
+
+            foreach (char c in value)
+                securePassword.AppendChar(c);
+
+            securePassword.MakeReadOnly();
+            return securePassword;
+        }
     }
 }

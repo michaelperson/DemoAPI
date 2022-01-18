@@ -8,6 +8,7 @@ using System;
 using System.ComponentModel.Design;
 using System.Windows;
 using Unity;
+using Unity.Injection;
 using Unity.Lifetime;
 using Unity.Resolution;
 using WpfSignalR.Tools.Infrastructures;
@@ -43,9 +44,10 @@ namespace WpfSignalR
             //// Flyout service
             Container.GetContainer().RegisterInstance(typeof(FlyoutService), "FlyoutService", Container.Resolve<FlyoutService>(), InstanceLifetime.Singleton);
             ////IApiRequesterService
-             
-            Container.GetContainer().RegisterInstance(typeof(IApiRequesterService), "ApiRequesterService", Container.Resolve<ApiRequesterService>(), InstanceLifetime.Singleton);
-
+            //Tuple<Type, Object> t = new Tuple<Type, object>(typeof(ApiRequesterService), new ApiRequesterService("https://localhost:5001/api"));
+            //Container.GetContainer().RegisterInstance(typeof(IApiRequesterService), "ApiRequesterService",
+            //    Container.Resolve<ApiRequesterService>( t.ToValueTuple()), InstanceLifetime.Singleton);
+            Container.GetContainer().RegisterType<IApiRequesterService, ApiRequesterService>(new InjectionConstructor("https://localhost:5001/api"));
 
         }
 

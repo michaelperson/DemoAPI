@@ -19,12 +19,12 @@ namespace WpfSignalR.Tools.Infrastructures.Services
         {
         }
 
-        public async Task<bool> Login(LoginModel lm)
+        public bool Login(LoginModel lm)
         {
-           await this.Execute("/api/Account/Login", JsonConvert.SerializeObject(lm), Method.POST, true).ContinueWith
-                ((obj)=> { return true; });
 
-            return false;
+            Task t = this.Execute("/Account/Login", JsonConvert.SerializeObject(lm), Method.POST, true);
+            t.Wait();
+            return t.IsCompletedSuccessfully;
         }
     }
 }

@@ -9,6 +9,6 @@ namespace WpfSignalR.Tools.Infrastructures.Interfaces
 {
     public interface IApiRequesterService
     {
-        Task<bool> Login(LoginModel lm);
+        bool Login(LoginModel lm);
     }
 }
